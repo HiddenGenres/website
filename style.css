@@ -1,0 +1,65 @@
+:root {
+    --background-color: #faf5ef;
+    --accent-color: #333;
+    --shade-color: #555;
+    --hyperlink-color: #005f69;
+}
+
+@font-face {
+    font-family: "HALTimezone";
+    src: url("../assets/HALTimezone-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "HALTimezone";
+    src: url("../assets/HALTimezone-Italic.ttf") format("truetype");
+    font-weight: normal;
+    font-style: italic;
+}
+
+html {
+    height: 100%; /* Ensure the html element covers the full height */
+    background-color: var(--background-color);
+    display: flex; /* Apply Flexbox */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "HALTimezone", "EB Garamond", serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Added to ensure content is centered within the body */
+    width: 100%; /* Full width */
+    min-height: 100vh; /* Minimum height to cover the viewport height */
+    margin: 0; /* Remove the 5% margin to allow full centering */
+    padding: 0;
+    background-color: var(--background-color);
+}
+
+.countdown-container {
+    text-align: center;
+}
+
+#countdown {
+    font-size: 2rem;
+    margin-top: 20px;
+}
+
+.message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 50%;
+    margin: 0 auto; /* Keep this to center the message box horizontally */
+}
+
+a {
+    color: var(--hyperlink-color);
+}
