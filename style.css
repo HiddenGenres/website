@@ -78,8 +78,83 @@ a {
     color: var(--hyperlink-color);
 }
 
-.trademark-text {
+.text-box {
     max-width: 100vh;
     /* height: 8vh; */
     font-size: 8pt;
+}
+
+.playlist-box {
+    /* height: 10vh; */
+    width: 80%;
+}
+
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-container {
+    width: 100%;
+    /* position: relative; */
+    display: flex; /* Align input and button horizontally */
+}
+
+.input-container input[type="text"] {
+    height: 50px;
+    width: 100%; /* Dynamic size, proportional to its container */
+    appearance: none;
+    box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
+        10px 10px 15px rgba(70, 70, 70, 0.12);
+    border-radius: 10px 0 0 10px; /* Adjusted for the button on the right */
+    /* border: 8px solid var(--background-color); */
+    background-color: var(--background-color);
+    cursor: pointer;
+    outline: none;
+    padding: 0px 15px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.25s;
+}
+
+.submit-btn {
+    height: 53px;
+    margin: 0;
+    padding: 0;
+    width: 20%;
+    border-radius: 0 10px 10px 0;
+    /* border: 8px solid var(--background-color); */
+    background-color: var(--hyperlink-color);
+    color: white;
+    cursor: pointer;
+    outline: none;
+    font-size: 16px;
+    box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
+        10px 10px 15px rgba(70, 70, 70, 0.12);
+    transition: all 0.25s;
+}
+
+.input-container input[type="text"]:focus {
+    box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
+        10px 10px 15px rgba(70, 70, 70, 0.12),
+        inset -10px -10px 15px rgba(255, 255, 255, 0.5),
+        inset 10px 10px 15px rgba(70, 70, 70, 0.12);
+    color: var(--hyperlink-color);
+}
+
+.submit-btn:focus {
+    box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
+        10px 10px 15px rgba(70, 70, 70, 0.12),
+        inset -10px -10px 15px rgba(255, 255, 255, 0.5),
+        inset 10px 10px 15px rgba(70, 70, 70, 0.12);
+    color: white;
+}
+
+.input-container input[type="text"]:focus::after,
+.submit-btn:focus::after {
+    color: var(--hyperlink-color);
 }
