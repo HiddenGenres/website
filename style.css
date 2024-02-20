@@ -20,11 +20,7 @@
 }
 
 html {
-    height: 100%; /* Ensure the html element covers the full height */
     background-color: var(--background-color);
-    display: flex; /* Apply Flexbox */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
     margin: 0;
     padding: 0;
 }
@@ -36,30 +32,54 @@ body {
     align-items: center;
     justify-content: center; /* Added to ensure content is centered within the body */
     width: 100%; /* Full width */
-    min-height: 100vh; /* Minimum height to cover the viewport height */
-    margin: 0; /* Remove the 5% margin to allow full centering */
+    height: 100%;
+    margin: 0;
     padding: 0;
     background-color: var(--background-color);
 }
 
-.countdown-container {
-    text-align: center;
-}
-
-#countdown {
-    font-size: 2rem;
-    margin-top: 20px;
-}
-
-.message {
+header {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    width: 50%;
-    margin: 0 auto; /* Keep this to center the message box horizontally */
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 10%;
+    margin: 0;
+}
+
+.me {
+    display: flex;
+    width: 80%;
+    max-width: 300px;
+    padding: 10%;
+    font-size: 30pt;
+    animation: drawSnake 4s linear forwards;
+}
+
+@keyframes drawSnake {
+    0% {
+        color: transparent;
+    }
+    25% {
+        color: rgba(50, 0, 0, 0.25);
+    }
+    50% {
+        color: rgba(0, 95, 0, 0.5);
+    }
+    75% {
+        color: rgba(0, 0, 105, 0.75);
+    }
+    100% {
+        color: var(--hyperlink-color);
+    }
 }
 
 a {
     color: var(--hyperlink-color);
+}
+
+.trademark-text {
+    max-width: 100vh;
+    /* height: 8vh; */
+    font-size: 8pt;
 }
