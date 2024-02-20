@@ -158,3 +158,27 @@ a {
 .submit-btn:focus::after {
     color: var(--hyperlink-color);
 }
+
+.explorer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.genre-explorer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: right;
+    align-items: flex-end;
+    padding-right: 2.5%;
+}
+
+.songs-explorer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: left;
+    align-items: flex-start;
+    padding-left: 2.5%;
+}
