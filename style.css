@@ -182,3 +182,7 @@ a {
     align-items: flex-start;
     padding-left: 2.5%;
 }
+
+#end {
+    align-items: flex-end;
+}
