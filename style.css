@@ -186,3 +186,69 @@ a {
 #end {
     align-items: flex-end;
 }
+
+.explorer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 15%;
+}
+
+/* Style for the song names */
+h3 {
+    margin: 10px 0 5px; /* Adjust top and bottom margin as needed, minimal space between song name and genre */
+}
+
+/* Style for the genres */
+p i {
+    color: gray; /* Gray color for genre text */
+    display: block; /* Make the genre appear on its own line */
+    margin-top: -5px; /* Reduce space between song name and genre */
+}
+
+/* Optional: Style for the explorer container for better layout */
+.explorer div {
+    padding-bottom: 20px; /* Space between each song entry */
+    border-bottom: 1px solid #eee; /* Optional: adds a light separator line between songs */
+}
+
+.explorer div:last-child {
+    border-bottom: none; /* Removes the bottom border from the last song entry */
+}
+
+.loading-bar-container {
+    width: 100%;
+    background-color: #ddd; /* Light grey background */
+    border-radius: 5px;
+    box-shadow: inset 4px 4px 6px #bbb, inset -4px -4px 6px #fff; /* Neumorphism effect */
+    overflow: hidden; /* Ensures the inner bar doesn't overflow outside the rounded corners */
+    margin-top: 20px;
+}
+
+.loading-bar {
+    height: 20px;
+    width: 0%;
+    background-color: var(--hyperlink-color);
+    border-radius: 5px;
+    transition: width 30s linear; /* Adjust as needed */
+    animation: color-change 5s infinite; /* Color change animation */
+}
+
+@keyframes color-change {
+    0% {
+        background-color: var(--hyperlink-color);
+    }
+    25% {
+        background-color: var(--accent-color);
+    }
+    50% {
+        background-color: var(--shade-color);
+    }
+    75% {
+        background-color: var(--background-color);
+    }
+    100% {
+        background-color: var(--hyperlink-color);
+    }
+}

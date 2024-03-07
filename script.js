@@ -1,36 +1,83 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Set the launch date in EST
-    var launchDate = new Date("Feb 20, 2024 20:20:20 GMT-0500").getTime();
+    const audioPlayer = new Audio(); // Create a single audio player for all previews
+    document
+        .querySelector(".submit-btn")
+        .addEventListener("click", function () {
+            const playlistUrl = document.getElementById("playlist-url").value;
 
-    var countdownFunction = setInterval(function () {
-        var now = new Date().getTime();
+            // Immediately use placeholder data if no URL is provided
+            if (!playlistUrl.trim()) {
+                fetchData("./assets/placeholder.json")
+                    .then((data) => populateData(data))
+                    .catch((error) =>
+                        console.error(
+                            "Error processing the placeholder JSON data:",
+                            error
+                        )
+                    );
+                return;
+            }
 
-        // Calculate the difference between now and the launch date
-        var distance = launchDate - now;
+            const playlistId = extractPlaylistId(playlistUrl);
 
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor(
-            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            if (!playlistId) {
+                alert("Invalid Playlist URL. Using default data instead.");
+                fetchData("./assets/placeholder.json")
+                    .then((data) => populateData(data))
+                    .catch((error) =>
+                        console.error(
+                            "Error processing the placeholder JSON data:",
+                            error
+                        )
+                    );
+                return;
+            }
 
-        // Display the countdown
-        document.getElementById("countdown").innerHTML =
-            "T - " +
-            days +
-            "d " +
-            hours +
-            "h " +
-            minutes +
-            "m " +
-            seconds +
-            "s ";
-
-        // If the countdown is over, display a message
-        if (distance < 0) {
-            clearInterval(countdownFunction);
-            document.getElementById("countdown").innerHTML = "EXPIRED";
-        }
-    }, 1000);
+            // Placeholder for actual API call, not used in this context
+            fetchData(
+                `https://8f25mqvzg8.execute-api.us-east-2.amazonaws.com/bharxhav/curate?playlist=${playlistId}`
+            )
+                .then((data) => populateData(data))
+                .catch((error) =>
+                    console.error("Error fetching data from the API:", error)
+                );
+        });
 });
+
+function fetchData(url) {
+    return fetch(url).then((response) => response.json()); // Directly parsing JSON without replacing 'NaN' as the placeholder should not contain invalid JSON
+}
+
+function populateData(data) {
+    const explorer = document.querySelector(".explorer");
+    explorer.innerHTML = `<p>Our search uncovered <strong style="font-size: 20px">${data.total_found}</strong> songs that you're likely to enjoy over the next five years. Below are the top 100. To preview a song, simply click on <img src="./assets/play-song.png" style="cursor: pointer; width: 24px; vertical-align: middle;"/>. Happy exploring!</p>`;
+
+    data.songs.forEach((song) => {
+        const songElement = document.createElement("div");
+        songElement.innerHTML = `
+            <h3>${
+                song.name
+            } <img src="./assets/play-song.png" alt="Play" style="cursor: pointer; width: 24px; vertical-align: middle;" data-preview="${
+            song.preview_url || "#"
+        }"></h3>
+            <p><i>${song.genre.join(", ")}</i></p>
+        `;
+        explorer.appendChild(songElement);
+    });
+
+    explorer.querySelectorAll("img").forEach((img) => {
+        img.addEventListener("click", function () {
+            const previewUrl = this.getAttribute("data-preview");
+            if (previewUrl && previewUrl !== "#") {
+                audioPlayer.src = previewUrl;
+                audioPlayer.play();
+            }
+        });
+    });
+}
+
+function extractPlaylistId(url) {
+    const regex = /open.spotify.com\/playlist\/([a-zA-Z0-9]+)(?=\?|$)/;
+    const matches = url.match(regex);
+    return matches ? matches[1] : null;
+}

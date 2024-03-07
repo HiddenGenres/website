@@ -43,7 +43,9 @@
             <div class="container">
                 <div class="input-container">
                     <input
+                        input
                         type="text"
+                        id="playlist-url"
                         placeholder="https://open.spotify.com/playlist/0KZW6NNcDIHUsPyCs5P0RW"
                     />
                 </div>
@@ -52,23 +54,19 @@
         </div>
         <br />
         <div class="whispers"></div>
-        <br />
-        <div class="text-box" id="end">
+        <!-- <div class="text-box" id="end">
             Recommendations are <strong>very</strong> unique. Unlike other
             recommender systems, we don't recommend genres, we use features of
             the song to distill genres. Making our recommendation more about
             your mood than your taste!
-        </div>
-        <!-- <div class="explorer">
-            <div class="genre-explorer">
-                <div class="text-box">
-                    Click on a genre to explore your options!
-                </div>
-            </div>
-            <div class="songs-explorer">
-                <div class="text-box">Click on a name to preview the song!</div>
-            </div>
         </div> -->
+        <div class="text-box" id="end" hidden="true">
+            We found {} songs that we feel you will listen in the next 5 years.
+            Here are top 100, click on <img src="./assets/play-song.png" /> to
+            explore!
+        </div>
+        <br />
+        <div class="explorer"></div>
         <script src="script.js"></script>
     </body>
 </html>
