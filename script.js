@@ -81,7 +81,10 @@ d3.json("./data/dots.json").then((data) => {
     const centerX = width / 2;
     const centerY = height / 2;
 
+    let userPanned = false;
+
     function drift() {
+        if (userPanned) return; // Stop drifting if the user has panned
         angle += 0.01;
         const dx = radius * Math.cos(angle);
         const dy = radius * Math.sin(angle);
@@ -90,7 +93,7 @@ d3.json("./data/dots.json").then((data) => {
 
         textGroup
             .transition()
-            .duration(200)
+            .duration(400)
             .ease(d3.easeLinear)
             .attr("transform", newTransform)
             .on("end", drift);
@@ -101,6 +104,7 @@ d3.json("./data/dots.json").then((data) => {
     drift();
 
     svg.on("mousedown touchstart", () => {
+        userPanned = true;
         svg.on(".zoom", null);
         textGroup.interrupt();
     });
