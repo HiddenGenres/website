@@ -36,6 +36,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: var(--background-color);
+    min-height: 100vh;
 }
 
 header {
@@ -53,24 +54,36 @@ header {
     max-width: 300px;
     padding: 10%;
     font-size: 30pt;
-    animation: drawSnake 4s linear forwards;
+    animation: drawSnake 14s linear infinite;
 }
 
 @keyframes drawSnake {
     0% {
         color: transparent;
     }
-    25% {
+    12.5% {
         color: rgba(50, 0, 0, 0.25);
     }
-    50% {
+    25% {
         color: rgba(0, 95, 0, 0.5);
     }
-    75% {
+    37.5% {
         color: rgba(0, 0, 105, 0.75);
     }
-    100% {
+    50% {
         color: var(--hyperlink-color);
+    }
+    62.5% {
+        color: rgba(0, 0, 105, 0.75);
+    }
+    75% {
+        color: rgba(0, 95, 0, 0.5);
+    }
+    87.5% {
+        color: rgba(50, 0, 0, 0.25);
+    }
+    100% {
+        color: transparent;
     }
 }
 
@@ -159,96 +172,46 @@ a {
     color: var(--hyperlink-color);
 }
 
-.explorer {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}
-
-.genre-explorer {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    justify-content: right;
-    align-items: flex-end;
-    padding-right: 2.5%;
-}
-
-.songs-explorer {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    justify-content: left;
-    align-items: flex-start;
-    padding-left: 2.5%;
-}
-
 #end {
     align-items: flex-end;
 }
 
-.explorer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding-left: 15%;
+#genre-display {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    font-weight: bold;
+    z-index: 1000;
+    background-color: rgba(
+        250,
+        245,
+        239,
+        0.8
+    ); /* Semi-transparent background */
+    padding: 5px 10px;
+    border-radius: 5px;
 }
 
-/* Style for the song names */
-h3 {
-    margin: 10px 0 5px; /* Adjust top and bottom margin as needed, minimal space between song name and genre */
-}
-
-/* Style for the genres */
-p i {
-    color: gray; /* Gray color for genre text */
-    display: block; /* Make the genre appear on its own line */
-    margin-top: -5px; /* Reduce space between song name and genre */
-}
-
-/* Optional: Style for the explorer container for better layout */
-.explorer div {
-    padding-bottom: 20px; /* Space between each song entry */
-    border-bottom: 1px solid #eee; /* Optional: adds a light separator line between songs */
-}
-
-.explorer div:last-child {
-    border-bottom: none; /* Removes the bottom border from the last song entry */
-}
-
-.loading-bar-container {
+#plot-container {
+    flex-grow: 1;
     width: 100%;
-    background-color: #ddd; /* Light grey background */
-    border-radius: 5px;
-    box-shadow: inset 4px 4px 6px #bbb, inset -4px -4px 6px #fff; /* Neumorphism effect */
-    overflow: hidden; /* Ensures the inner bar doesn't overflow outside the rounded corners */
-    margin-top: 20px;
+    position: relative;
+    overflow: hidden;
+    margin-top: 20px; /* Add some space between the search bar and the plot */
 }
 
-.loading-bar {
-    height: 20px;
-    width: 0%;
-    background-color: var(--hyperlink-color);
-    border-radius: 5px;
-    transition: width 30s linear; /* Adjust as needed */
-    animation: color-change 5s infinite; /* Color change animation */
+#plot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: move; /* This sets the cursor to the "pan" icon */
 }
 
-@keyframes color-change {
-    0% {
-        background-color: var(--hyperlink-color);
-    }
-    25% {
-        background-color: var(--accent-color);
-    }
-    50% {
-        background-color: var(--shade-color);
-    }
-    75% {
-        background-color: var(--background-color);
-    }
-    100% {
-        background-color: var(--hyperlink-color);
-    }
+/* Adjust the playlist-box margin to create space between it and the plot */
+.playlist-box {
+    margin-bottom: 20px;
 }
