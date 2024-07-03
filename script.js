@@ -1,4 +1,3 @@
-// Load the data
 d3.json("./data/dots.json").then((data) => {
     const svg = d3.select("#plot");
     const width = svg.node().getBoundingClientRect().width;
@@ -6,7 +5,6 @@ d3.json("./data/dots.json").then((data) => {
 
     svg.attr("width", width).attr("height", height);
 
-    // Create scales
     const xScale = d3
         .scaleLinear()
         .domain(d3.extent(data, (d) => d.x))
@@ -17,10 +15,13 @@ d3.json("./data/dots.json").then((data) => {
         .domain(d3.extent(data, (d) => d.y))
         .range([height, 0]);
 
-    // Create a group for the text elements
     const textGroup = svg.append("g");
 
-    // Create and add the text elements
+    function updateFontSize(transform) {
+        const fontSize = 20 / transform.k;
+        textGroup.selectAll("text").attr("font-size", `${fontSize}px`);
+    }
+
     textGroup
         .selectAll("text")
         .data(data)
@@ -28,35 +29,41 @@ d3.json("./data/dots.json").then((data) => {
         .append("text")
         .attr("x", (d) => xScale(d.x))
         .attr("y", (d) => yScale(d.y))
-        .text((d) => d["genre-name"]) // Changed from d.name to d["genre-name"]
+        .text((d) => d["genre-name"])
         .attr("font-size", "12px")
         .attr("fill", "black")
         .attr("text-anchor", "middle")
         .attr("dominant-baseline", "central")
         .on("mouseover", function (event, d) {
+            const currentFontSize = parseFloat(
+                d3.select(this).attr("font-size")
+            );
             d3.select(this)
-                .attr("font-size", "16px")
+                .attr("font-size", `${currentFontSize * 1.33}px`)
                 .attr("font-weight", "bold");
-            d3.select("#genre-display").text(d["genre-name"]); // Changed here as well
+            d3.select("#genre-display").text(d["genre-name"]);
         })
         .on("mouseout", function () {
+            const currentFontSize = parseFloat(
+                d3.select(this).attr("font-size")
+            );
             d3.select(this)
-                .attr("font-size", "12px")
+                .attr("font-size", `${currentFontSize / 1.33}px`)
                 .attr("font-weight", "normal");
             d3.select("#genre-display").text("");
         });
 
-    // Set up zoom and pan behavior
     const zoom = d3
         .zoom()
-        .scaleExtent([1, 10])
+        .scaleExtent([5, 5])
         .on("zoom", (event) => {
             textGroup.attr("transform", event.transform);
+            updateFontSize(event.transform);
         });
 
     svg.call(zoom);
 
-    // Initial zoom (adjust the scale factor as needed)
-    const initialScale = 5;
+    const initialScale = 10;
     svg.call(zoom.transform, d3.zoomIdentity.scale(initialScale));
+    updateFontSize(d3.zoomIdentity.scale(initialScale));
 });
