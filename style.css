@@ -226,6 +226,8 @@ header {
 
 .invisible {
     flex-grow: 0;
+    height: 2vh;
+    max-height: 100px;
 }
 
 .playlist-box {
