@@ -506,3 +506,59 @@ a {
     color: var(--hyperlink-color);
     text-decoration: none;
 }
+
+/* Existing styles remain unchanged */
+
+/* ... (keep all your existing CSS rules here) ... */
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+    header {
+        height: 80px;
+    }
+
+    .header-content {
+        justify-content: center;
+    }
+
+    .left {
+        text-align: center;
+    }
+
+    .me {
+        font-size: 24pt;
+    }
+
+    .right,
+    #genre-display {
+        display: none;
+    }
+
+    .playlist-box {
+        display: none;
+    }
+
+    /* Adjust floating content for mobile */
+    #floating-content {
+        justify-content: flex-start;
+    }
+
+    /* Ensure the plot takes up the full screen on mobile */
+    #plot-container,
+    #plot {
+        width: 100vw;
+        height: 100vh;
+    }
+}
+
+/* Ensure blur effects work on mobile */
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+    @media (max-width: 768px) {
+        .border-blur::before,
+        .border-blur::after,
+        .border-blur > div {
+            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+        }
+    }
+}
