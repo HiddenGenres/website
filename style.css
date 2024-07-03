@@ -1,5 +1,6 @@
 :root {
-    --background-color: #faf5ef;
+    /* --background-color: #faf5ef; */
+    --background-color: #000;
     --accent-color: #333;
     --shade-color: #555;
     --hyperlink-color: #005f69;
@@ -140,6 +141,7 @@ header {
     transform: translate(-50%, -50%);
     font-size: 24px;
     font-weight: bold;
+    color: white;
     z-index: 11;
 }
 

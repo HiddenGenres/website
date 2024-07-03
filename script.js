@@ -31,7 +31,7 @@ d3.json("./data/dots.json").then((data) => {
         .attr("y", (d) => yScale(d.y))
         .text((d) => d["genre-name"])
         .attr("font-size", "20px")
-        .attr("fill", "black")
+        .attr("fill", "white")
         .attr("text-anchor", "middle")
         .attr("dominant-baseline", "central")
         .style("cursor", "pointer")
