@@ -1,9 +1,8 @@
-// Add this to your existing script.js file or create a new one
-
+// Load the data
 d3.json("./data/dots.json").then((data) => {
     const svg = d3.select("#plot");
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+    const width = svg.node().getBoundingClientRect().width;
+    const height = svg.node().getBoundingClientRect().height;
 
     svg.attr("width", width).attr("height", height);
 
@@ -18,25 +17,32 @@ d3.json("./data/dots.json").then((data) => {
         .domain(d3.extent(data, (d) => d.y))
         .range([height, 0]);
 
-    // Create a group for the points
-    const pointsGroup = svg.append("g");
+    // Create a group for the text elements
+    const textGroup = svg.append("g");
 
-    // Create and add the points
-    pointsGroup
-        .selectAll("circle")
+    // Create and add the text elements
+    textGroup
+        .selectAll("text")
         .data(data)
         .enter()
-        .append("circle")
-        .attr("cx", (d) => xScale(d.x))
-        .attr("cy", (d) => yScale(d.y))
-        .attr("r", 3)
+        .append("text")
+        .attr("x", (d) => xScale(d.x))
+        .attr("y", (d) => yScale(d.y))
+        .text((d) => d["genre-name"]) // Changed from d.name to d["genre-name"]
+        .attr("font-size", "12px")
         .attr("fill", "black")
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "central")
         .on("mouseover", function (event, d) {
-            d3.select(this).attr("r", 5);
-            d3.select("#genre-display").text(d.genre);
+            d3.select(this)
+                .attr("font-size", "16px")
+                .attr("font-weight", "bold");
+            d3.select("#genre-display").text(d["genre-name"]); // Changed here as well
         })
         .on("mouseout", function () {
-            d3.select(this).attr("r", 3);
+            d3.select(this)
+                .attr("font-size", "12px")
+                .attr("font-weight", "normal");
             d3.select("#genre-display").text("");
         });
 
@@ -45,7 +51,7 @@ d3.json("./data/dots.json").then((data) => {
         .zoom()
         .scaleExtent([1, 10])
         .on("zoom", (event) => {
-            pointsGroup.attr("transform", event.transform);
+            textGroup.attr("transform", event.transform);
         });
 
     svg.call(zoom);
@@ -53,17 +59,4 @@ d3.json("./data/dots.json").then((data) => {
     // Initial zoom (adjust the scale factor as needed)
     const initialScale = 5;
     svg.call(zoom.transform, d3.zoomIdentity.scale(initialScale));
-
-    // Handle window resize
-    window.addEventListener("resize", () => {
-        const newWidth = window.innerWidth;
-        const newHeight = window.innerHeight;
-        svg.attr("width", newWidth).attr("height", newHeight);
-        xScale.range([0, newWidth]);
-        yScale.range([newHeight, 0]);
-        pointsGroup
-            .selectAll("circle")
-            .attr("cx", (d) => xScale(d.x))
-            .attr("cy", (d) => yScale(d.y));
-    });
 });
