@@ -28,26 +28,30 @@
         <link rel="icon" type="image/png" href="./assets/site-icon.png" />
     </head>
     <body>
-        <header>
-            <div class="left">
-                <a class="me" href="https://hiddengenres.com/">hidden.genres</a>
-            </div>
-            <div class="right"></div>
-        </header>
-        <div id="genre-display"></div>
-        <div class="text-box">
-            It's as easy as entering your favorite genre of music.
-        </div>
-        <div class="playlist-box">
-            <div class="container">
-                <div class="input-container">
-                    <input type="text" id="genre" placeholder="classical" />
-                </div>
-                <button class="submit-btn">Go!</button>
-            </div>
-        </div>
         <div id="plot-container">
             <svg id="plot"></svg>
+        </div>
+        <div id="floating-content">
+            <header>
+                <div class="left">
+                    <a class="me" href="https://hiddengenres.com/"
+                        >hidden.genres</a
+                    >
+                </div>
+                <div class="right"></div>
+            </header>
+            <div id="genre-display"></div>
+            <div class="text-box">
+                It's as easy as entering your favorite genre of music.
+            </div>
+            <div class="playlist-box">
+                <div class="container">
+                    <div class="input-container">
+                        <input type="text" id="genre" placeholder="classical" />
+                    </div>
+                    <button class="submit-btn">Go!</button>
+                </div>
+            </div>
         </div>
         <script src="https://d3js.org/d3.v7.min.js"></script>
         <script src="script.js"></script>

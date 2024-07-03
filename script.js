@@ -1,8 +1,9 @@
-// Then, add this D3.js code
+// Add this to your existing script.js file or create a new one
+
 d3.json("./data/dots.json").then((data) => {
     const svg = d3.select("#plot");
-    const width = document.getElementById("plot-container").offsetWidth;
-    const height = document.getElementById("plot-container").offsetHeight;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
 
     svg.attr("width", width).attr("height", height);
 
@@ -32,14 +33,11 @@ d3.json("./data/dots.json").then((data) => {
         .attr("fill", "black")
         .on("mouseover", function (event, d) {
             d3.select(this).attr("r", 5);
-            d3.select("body")
-                .append("div")
-                .attr("id", "genre-display")
-                .text(d.genre);
+            d3.select("#genre-display").text(d.genre);
         })
         .on("mouseout", function () {
             d3.select(this).attr("r", 3);
-            d3.select("#genre-display").remove();
+            d3.select("#genre-display").text("");
         });
 
     // Set up zoom and pan behavior
@@ -55,4 +53,17 @@ d3.json("./data/dots.json").then((data) => {
     // Initial zoom (adjust the scale factor as needed)
     const initialScale = 5;
     svg.call(zoom.transform, d3.zoomIdentity.scale(initialScale));
+
+    // Handle window resize
+    window.addEventListener("resize", () => {
+        const newWidth = window.innerWidth;
+        const newHeight = window.innerHeight;
+        svg.attr("width", newWidth).attr("height", newHeight);
+        xScale.range([0, newWidth]);
+        yScale.range([newHeight, 0]);
+        pointsGroup
+            .selectAll("circle")
+            .attr("cx", (d) => xScale(d.x))
+            .attr("cy", (d) => yScale(d.y));
+    });
 });

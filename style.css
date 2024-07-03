@@ -29,14 +29,12 @@ body {
     font-family: "HALTimezone", "EB Garamond", serif;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center; /* Added to ensure content is centered within the body */
-    width: 100%; /* Full width */
-    height: 100%;
     margin: 0;
     padding: 0;
     background-color: var(--background-color);
     min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
 }
 
 header {
@@ -46,6 +44,9 @@ header {
     width: 100%;
     height: 10%;
     margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .me {
@@ -55,6 +56,19 @@ header {
     padding: 10%;
     font-size: 30pt;
     animation: drawSnake 14s linear infinite;
+    position: relative;
+}
+
+.me::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(250, 245, 239, 0.5);
+    filter: blur(10px);
+    z-index: -1;
 }
 
 @keyframes drawSnake {
@@ -92,14 +106,25 @@ a {
 }
 
 .text-box {
-    max-width: 100vh;
-    /* height: 8vh; */
+    max-width: 80%;
     font-size: 8pt;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    background: rgba(250, 245, 239, 0.5);
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    cursor: text;
 }
 
 .playlist-box {
-    /* height: 10vh; */
     width: 80%;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .container {
@@ -111,20 +136,16 @@ a {
 
 .input-container {
     width: 100%;
-    /* position: relative; */
-    display: flex; /* Align input and button horizontally */
+    display: flex;
 }
 
 .input-container input[type="text"] {
     height: 50px;
-    width: 100%; /* Dynamic size, proportional to its container */
+    width: 100%;
     appearance: none;
-    box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
-        10px 10px 15px rgba(70, 70, 70, 0.12);
-    border-radius: 10px 0 0 10px; /* Adjusted for the button on the right */
-    /* border: 8px solid var(--background-color); */
+    border-radius: 10px 0 0 10px;
     background-color: var(--background-color);
-    cursor: pointer;
+    cursor: text;
     outline: none;
     padding: 0px 15px;
     font-size: 16px;
@@ -132,48 +153,27 @@ a {
     justify-content: center;
     align-items: center;
     transition: all 0.25s;
+    border: none;
 }
 
 .submit-btn {
-    height: 53px;
+    height: 50px;
     margin: 0;
     padding: 0;
     width: 20%;
     border-radius: 0 10px 10px 0;
-    /* border: 8px solid var(--background-color); */
     background-color: var(--hyperlink-color);
     color: white;
     cursor: pointer;
     outline: none;
     font-size: 16px;
-    box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
-        10px 10px 15px rgba(70, 70, 70, 0.12);
     transition: all 0.25s;
+    border: none;
 }
 
-.input-container input[type="text"]:focus {
-    box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
-        10px 10px 15px rgba(70, 70, 70, 0.12),
-        inset -10px -10px 15px rgba(255, 255, 255, 0.5),
-        inset 10px 10px 15px rgba(70, 70, 70, 0.12);
-    color: var(--hyperlink-color);
-}
-
+.input-container input[type="text"]:focus,
 .submit-btn:focus {
-    box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
-        10px 10px 15px rgba(70, 70, 70, 0.12),
-        inset -10px -10px 15px rgba(255, 255, 255, 0.5),
-        inset 10px 10px 15px rgba(70, 70, 70, 0.12);
-    color: white;
-}
-
-.input-container input[type="text"]:focus::after,
-.submit-btn:focus::after {
-    color: var(--hyperlink-color);
-}
-
-#end {
-    align-items: flex-end;
+    outline: none;
 }
 
 #genre-display {
@@ -184,34 +184,79 @@ a {
     font-size: 24px;
     font-weight: bold;
     z-index: 1000;
-    background-color: rgba(
-        250,
-        245,
-        239,
-        0.8
-    ); /* Semi-transparent background */
+    background-color: rgba(250, 245, 239, 0.8);
     padding: 5px 10px;
     border-radius: 5px;
+    backdrop-filter: blur(5px);
 }
 
 #plot-container {
-    flex-grow: 1;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-    margin-top: 20px; /* Add some space between the search bar and the plot */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
 }
 
 #plot {
+    width: 100%;
+    height: 100%;
+    cursor: move;
+}
+
+#plot circle {
+    cursor: pointer;
+}
+
+#floating-content {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    cursor: move; /* This sets the cursor to the "pan" icon */
+    z-index: 2;
+    pointer-events: none;
 }
 
-/* Adjust the playlist-box margin to create space between it and the plot */
+#floating-content > * {
+    pointer-events: auto;
+}
+
+.text-box,
 .playlist-box {
-    margin-bottom: 20px;
+    position: relative;
+}
+
+.text-box::before,
+.playlist-box::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: rgba(250, 245, 239, 0.5);
+    filter: blur(10px);
+    z-index: -1;
+}
+
+.input-container input[type="text"],
+.submit-btn {
+    position: relative;
+    z-index: 1;
+}
+
+.input-container::before,
+.submit-btn::before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: rgba(250, 245, 239, 0.5);
+    filter: blur(10px);
+    z-index: -1;
+    border-radius: inherit;
 }
