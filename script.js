@@ -30,10 +30,11 @@ d3.json("./data/dots.json").then((data) => {
         .attr("x", (d) => xScale(d.x))
         .attr("y", (d) => yScale(d.y))
         .text((d) => d["genre-name"])
-        .attr("font-size", "12px")
+        .attr("font-size", "20px")
         .attr("fill", "black")
         .attr("text-anchor", "middle")
         .attr("dominant-baseline", "central")
+        .style("cursor", "pointer")
         .on("mouseover", function (event, d) {
             const currentFontSize = parseFloat(
                 d3.select(this).attr("font-size")
@@ -55,7 +56,7 @@ d3.json("./data/dots.json").then((data) => {
 
     const zoom = d3
         .zoom()
-        .scaleExtent([5, 5])
+        .scaleExtent([10, 10])
         .on("zoom", (event) => {
             textGroup.attr("transform", event.transform);
             updateFontSize(event.transform);
@@ -63,7 +64,15 @@ d3.json("./data/dots.json").then((data) => {
 
     svg.call(zoom);
 
+    const randomPoint = data[Math.floor(Math.random() * data.length)];
+
     const initialScale = 10;
-    svg.call(zoom.transform, d3.zoomIdentity.scale(initialScale));
-    updateFontSize(d3.zoomIdentity.scale(initialScale));
+    const translateX = width / 2 - xScale(randomPoint.x) * initialScale;
+    const translateY = height / 2 - yScale(randomPoint.y) * initialScale;
+
+    const initialTransform = d3.zoomIdentity
+        .translate(translateX, translateY)
+        .scale(initialScale);
+    svg.call(zoom.transform, initialTransform);
+    updateFontSize(initialTransform);
 });
