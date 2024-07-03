@@ -63,48 +63,110 @@ body {
 }
 
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
-    position: relative;
-    overflow: hidden;
-}
-
-header::before {
-    content: "";
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
-    background: linear-gradient(
+    height: 100px; /* Adjust as needed */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 10;
+}
+
+.gradient-blur {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.gradient-blur::before,
+.gradient-blur::after,
+.gradient-blur > div {
+    content: "";
+    position: absolute;
+    inset: 0;
+}
+
+.gradient-blur::before {
+    z-index: 1;
+    backdrop-filter: blur(0.5px);
+    mask: linear-gradient(
         to bottom,
-        rgba(250, 245, 239, 0.8) 0%,
-        rgba(250, 245, 239, 0.6) 20%,
-        rgba(250, 245, 239, 0.4) 40%,
-        rgba(250, 245, 239, 0.2) 60%,
-        rgba(250, 245, 239, 0.1) 80%,
-        rgba(250, 245, 239, 0) 100%
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 1) 60%,
+        rgba(0, 0, 0, 0) 100%
     );
-    backdrop-filter: blur(10px);
-    z-index: -1;
+}
+
+.gradient-blur > div:nth-child(1) {
+    z-index: 2;
+    backdrop-filter: blur(1px);
+    mask: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 1) 50%,
+        rgba(0, 0, 0, 0) 100%
+    );
+}
+
+.gradient-blur > div:nth-child(2) {
+    z-index: 3;
+    backdrop-filter: blur(2px);
+    mask: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 1) 40%,
+        rgba(0, 0, 0, 0) 100%
+    );
+}
+
+.gradient-blur > div:nth-child(3) {
+    z-index: 4;
+    backdrop-filter: blur(4px);
+    mask: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 1) 30%,
+        rgba(0, 0, 0, 0) 100%
+    );
+}
+
+.gradient-blur > div:nth-child(4) {
+    z-index: 5;
+    backdrop-filter: blur(8px);
+    mask: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 1) 20%,
+        rgba(0, 0, 0, 0) 100%
+    );
+}
+
+.gradient-blur::after {
+    z-index: 6;
+    backdrop-filter: blur(16px);
+    mask: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 1) 10%,
+        rgba(0, 0, 0, 0) 100%
+    );
 }
 
 .left,
 .right {
-    flex: 0 0 auto;
-    z-index: 1;
+    z-index: 11;
 }
 
 #genre-display {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    text-align: center;
-    z-index: 1;
+    z-index: 11;
 }
 
 .me {
