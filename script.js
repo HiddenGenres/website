@@ -75,4 +75,33 @@ d3.json("./data/dots.json").then((data) => {
         .scale(initialScale);
     svg.call(zoom.transform, initialTransform);
     updateFontSize(initialTransform);
+
+    let angle = 0;
+    const radius = 100;
+    const centerX = width / 2;
+    const centerY = height / 2;
+
+    function drift() {
+        angle += 0.01;
+        const dx = radius * Math.cos(angle);
+        const dy = radius * Math.sin(angle);
+        const currentTransform = d3.zoomTransform(svg.node());
+        const newTransform = currentTransform.translate(dx, dy);
+
+        textGroup
+            .transition()
+            .duration(200)
+            .ease(d3.easeLinear)
+            .attr("transform", newTransform)
+            .on("end", drift);
+
+        updateFontSize(newTransform);
+    }
+
+    drift();
+
+    svg.on("mousedown touchstart", () => {
+        svg.on(".zoom", null);
+        textGroup.interrupt();
+    });
 });
