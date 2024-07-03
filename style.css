@@ -4,6 +4,7 @@
     --accent-color: #333;
     --shade-color: #555;
     --hyperlink-color: #005f69;
+    --blur-border-size: 2vmin;
 }
 
 @font-face {
@@ -28,6 +29,126 @@ body {
     background-color: var(--background-color);
     font-family: "HALTimezone", "EB Garamond", serif;
     overflow: hidden;
+}
+
+.border-blur {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.border-blur::before,
+.border-blur::after,
+.border-blur > div {
+    content: "";
+    position: absolute;
+    inset: 0;
+}
+
+.border-blur::before {
+    z-index: 1;
+    backdrop-filter: blur(2px);
+    mask: linear-gradient(
+            to right,
+            #000 var(--blur-border-size),
+            transparent calc(var(--blur-border-size) + 1px)
+        ),
+        linear-gradient(
+            to left,
+            #000 var(--blur-border-size),
+            transparent calc(var(--blur-border-size) + 1px)
+        ),
+        linear-gradient(
+            to bottom,
+            #000 var(--blur-border-size),
+            transparent calc(var(--blur-border-size) + 1px)
+        ),
+        linear-gradient(
+            to top,
+            #000 var(--blur-border-size),
+            transparent calc(var(--blur-border-size) + 1px)
+        );
+    mask-composite: add;
+}
+
+.border-blur > div:nth-child(1) {
+    z-index: 2;
+    backdrop-filter: blur(4px);
+    mask: linear-gradient(
+            to right,
+            #000 calc(var(--blur-border-size) * 0.75),
+            transparent var(--blur-border-size)
+        ),
+        linear-gradient(
+            to left,
+            #000 calc(var(--blur-border-size) * 0.75),
+            transparent var(--blur-border-size)
+        ),
+        linear-gradient(
+            to bottom,
+            #000 calc(var(--blur-border-size) * 0.75),
+            transparent var(--blur-border-size)
+        ),
+        linear-gradient(
+            to top,
+            #000 calc(var(--blur-border-size) * 0.75),
+            transparent var(--blur-border-size)
+        );
+    mask-composite: add;
+}
+
+.border-blur > div:nth-child(2) {
+    z-index: 3;
+    backdrop-filter: blur(8px);
+    mask: linear-gradient(
+            to right,
+            #000 calc(var(--blur-border-size) * 0.5),
+            transparent calc(var(--blur-border-size) * 0.75)
+        ),
+        linear-gradient(
+            to left,
+            #000 calc(var(--blur-border-size) * 0.5),
+            transparent calc(var(--blur-border-size) * 0.75)
+        ),
+        linear-gradient(
+            to bottom,
+            #000 calc(var(--blur-border-size) * 0.5),
+            transparent calc(var(--blur-border-size) * 0.75)
+        ),
+        linear-gradient(
+            to top,
+            #000 calc(var(--blur-border-size) * 0.5),
+            transparent calc(var(--blur-border-size) * 0.75)
+        );
+    mask-composite: add;
+}
+
+.border-blur::after {
+    z-index: 4;
+    backdrop-filter: blur(16px);
+    mask: linear-gradient(
+            to right,
+            #000 calc(var(--blur-border-size) * 0.25),
+            transparent calc(var(--blur-border-size) * 0.5)
+        ),
+        linear-gradient(
+            to left,
+            #000 calc(var(--blur-border-size) * 0.25),
+            transparent calc(var(--blur-border-size) * 0.5)
+        ),
+        linear-gradient(
+            to bottom,
+            #000 calc(var(--blur-border-size) * 0.25),
+            transparent calc(var(--blur-border-size) * 0.5)
+        ),
+        linear-gradient(
+            to top,
+            #000 calc(var(--blur-border-size) * 0.25),
+            transparent calc(var(--blur-border-size) * 0.5)
+        );
+    mask-composite: add;
 }
 
 #plot-container {
