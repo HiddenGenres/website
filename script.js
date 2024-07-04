@@ -22,6 +22,9 @@ d3.json("./data/dots.json").then((data) => {
         textGroup.selectAll("text").attr("font-size", `${fontSize}px`);
     }
 
+    // Create an audio element
+    const audio = new Audio();
+
     textGroup
         .selectAll("text")
         .data(data)
@@ -52,6 +55,15 @@ d3.json("./data/dots.json").then((data) => {
                 .attr("font-size", `${currentFontSize / 1.33}px`)
                 .attr("font-weight", "normal");
             d3.select("#genre-display").text("");
+        })
+        .on("click", function (event, d) {
+            // Stop any currently playing audio
+            audio.pause();
+            audio.currentTime = 0;
+
+            // Set the new audio source and play
+            audio.src = d.url;
+            audio.play();
         });
 
     let userPanned = false;
@@ -114,7 +126,6 @@ d3.json("./data/dots.json").then((data) => {
 
     function resetInactivityTimer() {
         clearTimeout(inactivityTimer);
-        // inactivityTimer = setTimeout(startDrift, 300000); // 5 minutes
         inactivityTimer = setTimeout(startDrift, 30000); // 30 seconds
     }
 
@@ -130,7 +141,4 @@ d3.json("./data/dots.json").then((data) => {
             resetInactivityTimer();
         }
     });
-
-    // Remove the mousemove and touchmove event listeners
-    // svg.on("mousemove.drift touchmove.drift", null);
 });
