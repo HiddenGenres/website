@@ -216,7 +216,7 @@ header {
 
 .me {
     font-size: 30pt;
-    animation: drawSnake 14s linear infinite;
+    animation: drawSnake 200s linear infinite;
 }
 
 .right a {
@@ -226,33 +226,65 @@ header {
 }
 
 @keyframes drawSnake {
-    0% {
-        color: transparent;
-    }
-    12.5% {
-        color: rgba(50, 0, 0, 0.25);
-    }
-    25% {
-        color: rgba(0, 95, 0, 0.5);
-    }
-    37.5% {
-        color: rgba(0, 0, 105, 0.75);
-    }
-    50% {
-        color: var(--hyperlink-color);
-    }
-    62.5% {
-        color: rgba(0, 0, 105, 0.75);
-    }
-    75% {
-        color: rgba(0, 95, 0, 0.5);
-    }
-    87.5% {
-        color: rgba(50, 0, 0, 0.25);
-    }
+    0%,
     100% {
         color: transparent;
     }
+    5% {
+        color: #800000; /* Dark red */
+    }
+    10% {
+        color: #ff0000; /* Bright red */
+    }
+    15% {
+        color: #008000; /* Dark green */
+    }
+    20% {
+        color: #00ff00; /* Bright green */
+    }
+    25% {
+        color: #000080; /* Dark blue */
+    }
+    30% {
+        color: #0000ff; /* Bright blue */
+    }
+    35% {
+        color: #808000; /* Dark yellow */
+    }
+    40% {
+        color: #ffff00; /* Bright yellow */
+    }
+    45% {
+        color: #800080; /* Dark magenta */
+    }
+    50% {
+        color: #ff00ff; /* Bright magenta */
+    }
+    55% {
+        color: #008080; /* Dark cyan */
+    }
+    60% {
+        color: #00ffff; /* Bright cyan */
+    }
+    65% {
+        color: #804000; /* Dark orange */
+    }
+    70% {
+        color: #ff8000; /* Bright orange */
+    }
+    75% {
+        color: #400080; /* Dark purple */
+    }
+    80% {
+        color: #8000ff; /* Bright purple */
+    }
+    90% {
+        color: transparent;
+    }
+}
+
+.color-animate {
+    animation: drawSnake 200s linear infinite;
 }
 
 #genre-display {
@@ -262,7 +294,7 @@ header {
     transform: translate(-50%, -50%);
     font-size: 24px;
     font-weight: bold;
-    color: white;
+    color: rgb(95, 95, 95);
     z-index: 11;
 }
 
@@ -489,8 +521,8 @@ input[type="text"] {
     padding: 0 20px;
     border: none;
     border-radius: 0 10px 10px 0;
-    background-color: var(--hyperlink-color);
-    color: white;
+    background-color: rgb(95, 95, 95);
+    color: black;
     font-size: 16px;
     cursor: pointer;
     position: relative;
