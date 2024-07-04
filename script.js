@@ -31,7 +31,7 @@ d3.json("./data/dots.json").then((data) => {
         .attr("y", (d) => yScale(d.y))
         .text((d) => d["genre-name"])
         .attr("font-size", "20px")
-        .attr("fill", (d) => d.color) // Use the color from the data
+        .attr("fill", (d) => d.color)
         .attr("text-anchor", "middle")
         .attr("dominant-baseline", "central")
         .style("cursor", "pointer")
@@ -54,12 +54,19 @@ d3.json("./data/dots.json").then((data) => {
             d3.select("#genre-display").text("");
         });
 
+    let userPanned = false;
+    let inactivityTimer;
+    let driftInterval;
+
     const zoom = d3
         .zoom()
         .scaleExtent([10, 10])
         .on("zoom", (event) => {
+            userPanned = true;
+            clearInterval(driftInterval);
             textGroup.attr("transform", event.transform);
             updateFontSize(event.transform);
+            resetInactivityTimer();
         });
 
     svg.call(zoom);
@@ -76,36 +83,54 @@ d3.json("./data/dots.json").then((data) => {
     svg.call(zoom.transform, initialTransform);
     updateFontSize(initialTransform);
 
-    let angle = 0;
-    const radius = 100;
+    let t = 0;
+    const a = 100; // horizontal radius of the infinity loop
+    const b = 60; // vertical radius of the infinity loop
     const centerX = width / 2;
     const centerY = height / 2;
 
-    let userPanned = false;
-
-    function drift() {
-        if (userPanned) return; // Stop drifting if the user has panned
-        angle += 0.01;
-        const dx = radius * Math.cos(angle);
-        const dy = radius * Math.sin(angle);
+    function infinityDrift() {
+        t += 0.01;
+        const x = (a * Math.sin(t)) / (1 + Math.cos(t) * Math.cos(t));
+        const y =
+            (b * Math.sin(t) * Math.cos(t)) / (1 + Math.cos(t) * Math.cos(t));
         const currentTransform = d3.zoomTransform(svg.node());
-        const newTransform = currentTransform.translate(dx, dy);
+        const newTransform = currentTransform.translate(x, y);
 
         textGroup
             .transition()
             .duration(400)
             .ease(d3.easeLinear)
-            .attr("transform", newTransform)
-            .on("end", drift);
+            .attr("transform", newTransform);
 
         updateFontSize(newTransform);
     }
 
-    drift();
+    function startDrift() {
+        userPanned = false;
+        clearInterval(driftInterval);
+        driftInterval = setInterval(infinityDrift, 400);
+    }
 
-    svg.on("mousedown touchstart", () => {
+    function resetInactivityTimer() {
+        clearTimeout(inactivityTimer);
+        // inactivityTimer = setTimeout(startDrift, 300000); // 5 minutes
+        inactivityTimer = setTimeout(startDrift, 30000); // 30 seconds
+    }
+
+    startDrift();
+
+    svg.on("mousedown.drift touchstart.drift", () => {
         userPanned = true;
-        svg.on(".zoom", null);
-        textGroup.interrupt();
+        clearInterval(driftInterval);
     });
+
+    svg.on("mouseup.drift touchend.drift", () => {
+        if (userPanned) {
+            resetInactivityTimer();
+        }
+    });
+
+    // Remove the mousemove and touchmove event listeners
+    // svg.on("mousemove.drift touchmove.drift", null);
 });
