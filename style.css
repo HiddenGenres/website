@@ -1,5 +1,4 @@
 :root {
-    /* --background-color: #faf5ef; */
     --background-color: #000;
     --accent-color: #333;
     --shade-color: #555;
@@ -50,6 +49,7 @@ body {
 .border-blur::before {
     z-index: 1;
     backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
     mask: linear-gradient(
             to right,
             #000 var(--blur-border-size),
@@ -71,11 +71,33 @@ body {
             transparent calc(var(--blur-border-size) + 1px)
         );
     mask-composite: add;
+    -webkit-mask: linear-gradient(
+            to right,
+            #000 var(--blur-border-size),
+            transparent calc(var(--blur-border-size) + 1px)
+        ),
+        linear-gradient(
+            to left,
+            #000 var(--blur-border-size),
+            transparent calc(var(--blur-border-size) + 1px)
+        ),
+        linear-gradient(
+            to bottom,
+            #000 var(--blur-border-size),
+            transparent calc(var(--blur-border-size) + 1px)
+        ),
+        linear-gradient(
+            to top,
+            #000 var(--blur-border-size),
+            transparent calc(var(--blur-border-size) + 1px)
+        );
+    -webkit-mask-composite: source-over;
 }
 
 .border-blur > div:nth-child(1) {
     z-index: 2;
     backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     mask: linear-gradient(
             to right,
             #000 calc(var(--blur-border-size) * 0.75),
@@ -97,11 +119,33 @@ body {
             transparent var(--blur-border-size)
         );
     mask-composite: add;
+    -webkit-mask: linear-gradient(
+            to right,
+            #000 calc(var(--blur-border-size) * 0.75),
+            transparent var(--blur-border-size)
+        ),
+        linear-gradient(
+            to left,
+            #000 calc(var(--blur-border-size) * 0.75),
+            transparent var(--blur-border-size)
+        ),
+        linear-gradient(
+            to bottom,
+            #000 calc(var(--blur-border-size) * 0.75),
+            transparent var(--blur-border-size)
+        ),
+        linear-gradient(
+            to top,
+            #000 calc(var(--blur-border-size) * 0.75),
+            transparent var(--blur-border-size)
+        );
+    -webkit-mask-composite: source-over;
 }
 
 .border-blur > div:nth-child(2) {
     z-index: 3;
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     mask: linear-gradient(
             to right,
             #000 calc(var(--blur-border-size) * 0.5),
@@ -123,11 +167,33 @@ body {
             transparent calc(var(--blur-border-size) * 0.75)
         );
     mask-composite: add;
+    -webkit-mask: linear-gradient(
+            to right,
+            #000 calc(var(--blur-border-size) * 0.5),
+            transparent calc(var(--blur-border-size) * 0.75)
+        ),
+        linear-gradient(
+            to left,
+            #000 calc(var(--blur-border-size) * 0.5),
+            transparent calc(var(--blur-border-size) * 0.75)
+        ),
+        linear-gradient(
+            to bottom,
+            #000 calc(var(--blur-border-size) * 0.5),
+            transparent calc(var(--blur-border-size) * 0.75)
+        ),
+        linear-gradient(
+            to top,
+            #000 calc(var(--blur-border-size) * 0.5),
+            transparent calc(var(--blur-border-size) * 0.75)
+        );
+    -webkit-mask-composite: source-over;
 }
 
 .border-blur::after {
     z-index: 4;
     backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     mask: linear-gradient(
             to right,
             #000 calc(var(--blur-border-size) * 0.25),
@@ -149,14 +215,32 @@ body {
             transparent calc(var(--blur-border-size) * 0.5)
         );
     mask-composite: add;
+    -webkit-mask: linear-gradient(
+            to right,
+            #000 calc(var(--blur-border-size) * 0.25),
+            transparent calc(var(--blur-border-size) * 0.5)
+        ),
+        linear-gradient(
+            to left,
+            #000 calc(var(--blur-border-size) * 0.25),
+            transparent calc(var(--blur-border-size) * 0.5)
+        ),
+        linear-gradient(
+            to bottom,
+            #000 calc(var(--blur-border-size) * 0.25),
+            transparent calc(var(--blur-border-size) * 0.5)
+        ),
+        linear-gradient(
+            to top,
+            #000 calc(var(--blur-border-size) * 0.25),
+            transparent calc(var(--blur-border-size) * 0.5)
+        );
+    -webkit-mask-composite: source-over;
 }
 
 #plot-container {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    inset: 0;
     z-index: 1;
 }
 
@@ -172,10 +256,7 @@ body {
 
 #floating-content {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     z-index: 2;
     pointer-events: none;
     display: flex;
@@ -231,52 +312,52 @@ header {
         color: transparent;
     }
     5% {
-        color: #800000; /* Dark red */
+        color: #800000;
     }
     10% {
-        color: #ff0000; /* Bright red */
+        color: #ff0000;
     }
     15% {
-        color: #008000; /* Dark green */
+        color: #008000;
     }
     20% {
-        color: #00ff00; /* Bright green */
+        color: #00ff00;
     }
     25% {
-        color: #000080; /* Dark blue */
+        color: #000080;
     }
     30% {
-        color: #0000ff; /* Bright blue */
+        color: #0000ff;
     }
     35% {
-        color: #808000; /* Dark yellow */
+        color: #808000;
     }
     40% {
-        color: #ffff00; /* Bright yellow */
+        color: #ffff00;
     }
     45% {
-        color: #800080; /* Dark magenta */
+        color: #800080;
     }
     50% {
-        color: #ff00ff; /* Bright magenta */
+        color: #ff00ff;
     }
     55% {
-        color: #008080; /* Dark cyan */
+        color: #008080;
     }
     60% {
-        color: #00ffff; /* Bright cyan */
+        color: #00ffff;
     }
     65% {
-        color: #804000; /* Dark orange */
+        color: #804000;
     }
     70% {
-        color: #ff8000; /* Bright orange */
+        color: #ff8000;
     }
     75% {
-        color: #400080; /* Dark purple */
+        color: #400080;
     }
     80% {
-        color: #8000ff; /* Bright purple */
+        color: #8000ff;
     }
     90% {
         color: transparent;
@@ -316,7 +397,14 @@ header {
 .gradient-blur::before {
     z-index: 1;
     backdrop-filter: blur(0.5px);
+    -webkit-backdrop-filter: blur(0.5px);
     mask: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 1) 60%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    -webkit-mask: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 1) 0%,
         rgba(0, 0, 0, 1) 60%,
@@ -327,7 +415,14 @@ header {
 .gradient-blur > div:nth-child(1) {
     z-index: 2;
     backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
     mask: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 1) 50%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    -webkit-mask: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 1) 0%,
         rgba(0, 0, 0, 1) 50%,
@@ -338,7 +433,14 @@ header {
 .gradient-blur > div:nth-child(2) {
     z-index: 3;
     backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
     mask: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 1) 40%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    -webkit-mask: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 1) 0%,
         rgba(0, 0, 0, 1) 40%,
@@ -349,7 +451,14 @@ header {
 .gradient-blur > div:nth-child(3) {
     z-index: 4;
     backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     mask: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 1) 30%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    -webkit-mask: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 1) 0%,
         rgba(0, 0, 0, 1) 30%,
@@ -360,7 +469,14 @@ header {
 .gradient-blur > div:nth-child(4) {
     z-index: 5;
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     mask: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 1) 20%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    -webkit-mask: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 1) 0%,
         rgba(0, 0, 0, 1) 20%,
@@ -371,7 +487,14 @@ header {
 .gradient-blur::after {
     z-index: 6;
     backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     mask: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 1) 0%,
+        rgba(0, 0, 0, 1) 10%,
+        rgba(0, 0, 0, 0) 100%
+    );
+    -webkit-mask: linear-gradient(
         to bottom,
         rgba(0, 0, 0, 1) 0%,
         rgba(0, 0, 0, 1) 10%,
@@ -422,6 +545,7 @@ header {
 .search-blur::before {
     z-index: 1;
     backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
     mask: linear-gradient(
             to right,
             rgba(0, 0, 0, 0) 0%,
@@ -437,11 +561,27 @@ header {
             rgba(0, 0, 0, 0) 100%
         );
     mask-composite: intersect;
+    -webkit-mask: linear-gradient(
+            to right,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(0, 0, 0, 1) 10%,
+            rgba(0, 0, 0, 1) 90%,
+            rgba(0, 0, 0, 0) 100%
+        ),
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0) 0%,
+            rgba(0, 0, 0, 1) 20%,
+            rgba(0, 0, 0, 1) 80%,
+            rgba(0, 0, 0, 0) 100%
+        );
+    -webkit-mask-composite: source-in;
 }
 
 .search-blur > div:nth-child(1) {
     z-index: 2;
     backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     mask: linear-gradient(
             to right,
             rgba(0, 0, 0, 0) 2%,
@@ -457,11 +597,27 @@ header {
             rgba(0, 0, 0, 0) 95%
         );
     mask-composite: intersect;
+    -webkit-mask: linear-gradient(
+            to right,
+            rgba(0, 0, 0, 0) 2%,
+            rgba(0, 0, 0, 1) 15%,
+            rgba(0, 0, 0, 1) 85%,
+            rgba(0, 0, 0, 0) 98%
+        ),
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0) 5%,
+            rgba(0, 0, 0, 1) 25%,
+            rgba(0, 0, 0, 1) 75%,
+            rgba(0, 0, 0, 0) 95%
+        );
+    -webkit-mask-composite: source-in;
 }
 
 .search-blur > div:nth-child(2) {
     z-index: 3;
     backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     mask: linear-gradient(
             to right,
             rgba(0, 0, 0, 0) 5%,
@@ -477,11 +633,27 @@ header {
             rgba(0, 0, 0, 0) 90%
         );
     mask-composite: intersect;
+    -webkit-mask: linear-gradient(
+            to right,
+            rgba(0, 0, 0, 0) 5%,
+            rgba(0, 0, 0, 1) 20%,
+            rgba(0, 0, 0, 1) 80%,
+            rgba(0, 0, 0, 0) 95%
+        ),
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0) 10%,
+            rgba(0, 0, 0, 1) 30%,
+            rgba(0, 0, 0, 1) 70%,
+            rgba(0, 0, 0, 0) 90%
+        );
+    -webkit-mask-composite: source-in;
 }
 
 .search-blur::after {
     z-index: 4;
     backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     mask: linear-gradient(
             to right,
             rgba(0, 0, 0, 0) 7%,
@@ -497,6 +669,21 @@ header {
             rgba(0, 0, 0, 0) 85%
         );
     mask-composite: intersect;
+    -webkit-mask: linear-gradient(
+            to right,
+            rgba(0, 0, 0, 0) 7%,
+            rgba(0, 0, 0, 1) 25%,
+            rgba(0, 0, 0, 1) 75%,
+            rgba(0, 0, 0, 0) 93%
+        ),
+        linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0) 15%,
+            rgba(0, 0, 0, 1) 35%,
+            rgba(0, 0, 0, 1) 65%,
+            rgba(0, 0, 0, 0) 85%
+        );
+    -webkit-mask-composite: source-in;
 }
 
 .input-container {
@@ -539,11 +726,6 @@ a {
     text-decoration: none;
 }
 
-/* Existing styles remain unchanged */
-
-/* ... (keep all your existing CSS rules here) ... */
-
-/* Mobile-specific styles */
 @media (max-width: 768px) {
     header {
         height: 80px;
@@ -570,176 +752,16 @@ a {
         display: none;
     }
 
-    /* Adjust floating content for mobile */
     #floating-content {
         justify-content: flex-start;
     }
 
-    /* Ensure the plot takes up the full screen on mobile */
     #plot-container,
     #plot {
         width: 100vw;
         height: 100vh;
     }
-}
 
-/* Ensure blur effects work on mobile */
-@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-    @media (max-width: 768px) {
-        .border-blur::before,
-        .border-blur::after,
-        .border-blur > div {
-            -webkit-backdrop-filter: blur(8px);
-            backdrop-filter: blur(8px);
-        }
-    }
-}
-
-/* Reset backdrop-filter for all elements */
-* {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-}
-
-/* Border blur */
-.border-blur {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: 1000;
-}
-
-.border-blur::before,
-.border-blur::after,
-.border-blur > div {
-    content: "";
-    position: absolute;
-    inset: 0;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-}
-
-.border-blur::before {
-    z-index: 1;
-    mask: linear-gradient(
-            to right,
-            #000 var(--blur-border-size),
-            transparent calc(var(--blur-border-size) + 1px)
-        ),
-        linear-gradient(
-            to left,
-            #000 var(--blur-border-size),
-            transparent calc(var(--blur-border-size) + 1px)
-        ),
-        linear-gradient(
-            to bottom,
-            #000 var(--blur-border-size),
-            transparent calc(var(--blur-border-size) + 1px)
-        ),
-        linear-gradient(
-            to top,
-            #000 var(--blur-border-size),
-            transparent calc(var(--blur-border-size) + 1px)
-        );
-    mask-composite: add;
-    -webkit-mask-composite: source-over;
-}
-
-/* Gradient blur for header */
-.gradient-blur {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-}
-
-.gradient-blur::before,
-.gradient-blur::after,
-.gradient-blur > div {
-    content: "";
-    position: absolute;
-    inset: 0;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-}
-
-.gradient-blur::before {
-    z-index: 1;
-    mask: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 1) 0%,
-        rgba(0, 0, 0, 1) 60%,
-        rgba(0, 0, 0, 0) 100%
-    );
-    -webkit-mask: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 1) 0%,
-        rgba(0, 0, 0, 1) 60%,
-        rgba(0, 0, 0, 0) 100%
-    );
-}
-
-/* Search blur */
-.search-blur {
-    position: absolute;
-    inset: -50px -100px;
-    pointer-events: none;
-}
-
-.search-blur::before,
-.search-blur::after,
-.search-blur > div {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 20px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-}
-
-.search-blur::before {
-    z-index: 1;
-    mask: linear-gradient(
-            to right,
-            rgba(0, 0, 0, 0) 0%,
-            rgba(0, 0, 0, 1) 10%,
-            rgba(0, 0, 0, 1) 90%,
-            rgba(0, 0, 0, 0) 100%
-        ),
-        linear-gradient(
-            to bottom,
-            rgba(0, 0, 0, 0) 0%,
-            rgba(0, 0, 0, 1) 20%,
-            rgba(0, 0, 0, 1) 80%,
-            rgba(0, 0, 0, 0) 100%
-        );
-    mask-composite: intersect;
-    -webkit-mask: linear-gradient(
-            to right,
-            rgba(0, 0, 0, 0) 0%,
-            rgba(0, 0, 0, 1) 10%,
-            rgba(0, 0, 0, 1) 90%,
-            rgba(0, 0, 0, 0) 100%
-        ),
-        linear-gradient(
-            to bottom,
-            rgba(0, 0, 0, 0) 0%,
-            rgba(0, 0, 0, 1) 20%,
-            rgba(0, 0, 0, 1) 80%,
-            rgba(0, 0, 0, 0) 100%
-        );
-    -webkit-mask-composite: source-in;
-}
-
-/* Ensure the plot container doesn't have a blur */
-#plot-container {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-}
-
-/* Mobile-specific styles */
-@media (max-width: 768px) {
     .border-blur::before,
     .border-blur::after,
     .border-blur > div,
@@ -752,4 +774,9 @@ a {
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
     }
+}
+
+#plot-container {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
 }
